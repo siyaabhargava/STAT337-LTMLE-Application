@@ -1,0 +1,125 @@
+---
+title: "LTMLE Project Outputs"
+author: "Laura Aleksonis, Siyaa Bhargava, Xhemka Elezi"
+date: "2026-04-18"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo = TRUE}
+#install.packages('ggplot2')
+library(ggplot2)
+cat('Packages retrieved!')
+```
+
+# Retrieval of Data and Results
+
+The working directory should be set to a folder containing all relevant items,
+including a folder named "Datasets" where the dataset of interest resides.
+
+```{r, message = FALSE}
+path <- 'LTMLE_Testing_2.R'
+source(path)
+cat('Data retrieved!')
+```
+
+# Dataset Statistics
+
+The threshold value used to categorize yards gained was the median of Yards gained per season in both t1 and t2.
+
+```{r, echo = FALSE}
+cat('Summary of Yards Gained in t1:\n')
+summary(expanded_data$Yards_t1)
+
+cat('\nSummary of Yards Gained in t2:\n')
+summary(expanded_data$Yards_t2)
+
+cat('\n-\t\t-\t\t-',
+    '\n\nSummary of Yard Categorizations:\n')
+
+yds_cat_summary <- as.matrix(table(expanded_data[,c("Yards_Category_t1","Yards_Category_t2")]))
+dimnames(yds_cat_summary) <- list(t1 = c('At or above median', 'Below median'),
+                                  t2 = c('At or above median', '   Below median'))
+yds_cat_summary
+```
+
+```{r}
+cat('Sample size:',
+    as.character(dim(expanded_data)[1]),
+    'football players\n')
+
+ggplot( expanded_data, aes(x = sapply(Yards_t1, mean, Yards_t2, trim = 0))) +
+  geom_histogram( breaks = seq(0,2250, by = 250/2) ) +
+  labs(title = 'Histogram of Yards Gained in a Year',
+       subtitle = 'Values determined for each player as the average of yards gained in t1 and t2',
+       x = 'Mean Amount of Yards Gained by a Player in a Year',
+       y = 'Number of Players')
+
+ggplot(expanded_data, aes(ifelse(Played_t3,'Playing','Not Playing'))) +
+  geom_bar() +
+  labs(title = 'How Many Players Played During their t3?',
+       x = 'Play Status of Year t3',
+       y = 'Number of Players')
+```
+
+```{r}
+cat('Correlations between all variables included in maximal model:\n\n')
+
+cor(chronological_data)
+heatmap(cor(chronological_data),
+        main = 'Heatmap of Correlations',
+        Rowv = NA, Colv = NA)
+```
+
+
+# Comparison Statistics
+
+## Summary Statistics
+
+```{r}
+cat(' OUTPUT: Maximal Model Statistics\n\n')
+print(results_matrix_max)
+
+cat('\n-\t\t-\t\t-\n\n',
+    'OUTPUT: Minimal Model Statistics\n\n')
+print(results_matrix_min)
+```
+
+## Complete Statistics: Maximal Model
+
+```{r}
+for (i in 1:length(a_bar_combos)) {
+  a_bar_input <- a_bar_combos[[i]]
+  
+  cat('\nOUTPUT: Maximal Model\n\t(abar =',
+      row.names(results_matrix_max)[i], ')\n\n')
+  
+  print(results_list_max[[i]])
+  
+  if (i < length(a_bar_combos)) {
+    cat('-\t\t-\t\t-\n')
+  }
+  
+}
+```
+
+## Complete Statistics: Minimal Model
+
+```{r}
+for (i in 1:length(a_bar_combos)) {
+  a_bar_input <- a_bar_combos[[i]]
+  
+  cat('OUTPUT: Minimal Model\n\t(abar =',
+      row.names(results_matrix_max)[i], ')\n\n')
+  
+  print(results_list_min[[i]])
+  
+  if (i < length(a_bar_combos)) {
+    cat('-\t\t-\t\t-\n')
+  }
+  
+}
+```

@@ -1,0 +1,50 @@
+This file contains the tables used in the statistical analysis for the LTMLE football project.
+
+Table 1 defines the variables used in the longitudinal model, including baseline variables, time-varying covariates, treatment variables, and the outcome.
+
+Table 2 describes the treatment trajectories (abar values), which represent patterns of performance over time.
+
+Table 3 presents the results of the LTMLE analysis, including additive treatment effects (ATE), relative risk (RR), odds ratios (OR), and p-values for both minimal and maximal models.
+
+These tables provide a structured summary of the dataset and the results used in the final report.
+
+
+# Tables
+
+## Table 1. Variable Definitions Used in Our Analysis
+
+| Component | Description | Variable Name |
+|----------|------------|--------------|
+| W | Baseline variable, remains constant over time | Years_Played_Before_t1 |
+| L1 | Time-varying covariates at t1 | Passing stats (attempts, completions, touchdowns, interceptions) |
+| A1 | Treatment at t1 | Yards_Category_t1 |
+| L2 | Time-varying covariates at t2 | Passing stats |
+| A2 | Treatment at t2 | Yards_Category_t2 |
+| Y | Outcome variable | Played_in_t3 |
+
+---
+
+## Table 2. Treatment Trajectories (abar Values)
+
+| Trajectory | Description |
+|-----------|-------------|
+| (0,0) | Low performance at t1 and t2 |
+| (0,1) | Low to high performance (improvement from t1 to t2) |
+| (1,0) | High to low performance (decline from t1 to t2) |
+| (1,1) | High performance at t1 and t2 |
+
+---
+
+## Table 3. Estimated Effects for Each Model and Treatment Comparison (Ordered by Increasing p-value)
+
+| Model | Comparison | ATE | p-value | RR | OR |
+|------|-----------|-----|--------|----|----|
+| Minimal | (0,1) vs (0,0) | 0.35* | 0.0036* | 4.59* | 7.49* |
+| Minimal | (1,1) vs (0,0) | 0.15 | 0.074 | 2.56 | 3.08 |
+| Maximal | (0,1) vs (0,0) | 0.18 | 0.145 | 2.10 | 2.70 |
+| Maximal | (1,1) vs (0,0) | 0.07 | 0.52 | 1.41 | 1.53 |
+| Maximal | (1,0) vs (0,0) | 0.09 | 0.53 | 1.54 | 1.73 |
+| Minimal | (1,0) vs (0,0) | 0.04 | 0.68 | 1.46 | 1.53 |
+
+**Note:**  
+*Only the increasing trajectory (0,1) in the minimal model produced statistically significant results (p < 0.05). All other comparisons were not statistically significant.*
