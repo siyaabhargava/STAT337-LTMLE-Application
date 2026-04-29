@@ -9,6 +9,9 @@ Feng, Yaning, et al. “Assessing the Impact of Insulin Resistance Trajectories 
 
 We applied the same methodology to football data, examining how changes in player performance (measured by passing yardage) influence the probability of continued participation.
 
+Data was extracted from here:
+“CFB Passing Box Scores — Per-QB, per-Game.” Sports-Statistics.Com, https://sports-statistics.com/sports-data/datasets/cfb-passing-box-scores/. Accessed 20 Apr. 2026. 
+
 # LTMLE Structure, as we defined it
 
 - W: baseline variable (Years_Played_Before_t1)
@@ -44,6 +47,10 @@ This folder contains the tables used in the final report, including variable def
 
 ### Model Output Files
 
+- **cfb-passing-box-scores.csv**  
+  Contains our raw dataset prior to analysis. 
+  “CFB Passing Box Scores — Per-QB, per-Game.” Sports-Statistics.Com, https://sports-statistics.com/sports-data/datasets/cfb-passing-box-scores/. Accessed 20 Apr. 2026. 
+
 - **LTMLE_Output_Script.pdf**  
   Contains the full results of the LTMLE models, including:
   - Additive Treatment Effect (ATE)
@@ -51,7 +58,6 @@ This folder contains the tables used in the final report, including variable def
   - Odds Ratio (OR)
   - p-values and confidence intervals
 
----
 
 ### R_Codes
 
@@ -61,21 +67,14 @@ This folder contains the tables used in the final report, including variable def
   - minimal model (reduced variables)
   - comparison of treatment trajectories
 
-- **LTMLE_Testing.R**  
-  Earlier version of the analysis script used for testing.
-
 - **LTMLE_Output_Script.Rmd**  
   R Markdown file used to generate formatted output and visualizations.
 
 - **LTMLE_Output_Script.docx**  
   Word document version of the formatted output.
 
-- **Sports_Dataset_Processing_2.R / Sports_Dataset_Processing_3.R**  
+- **Sports_Dataset_Processing_3.R**  
   Scripts used to clean and structure the dataset into longitudinal format (t1, t2, t3).
-
-- **Sports_Dataset_Retriever.R**  
-  Script used to extract and organize raw football data into usable format.
-
 
 ---
 
